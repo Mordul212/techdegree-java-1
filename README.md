@@ -1,2 +1,2 @@
-# techdegree-java-1
+# Techdegree Javascript 1
 First Techdegree Java project
