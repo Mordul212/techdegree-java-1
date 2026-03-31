@@ -11,13 +11,13 @@ project 1 - A Random Quote Generator
  * `quotes` array 
 ***/
 
-quotes = [
+quotes = [ // must be "quotes"
   { quote : "May the Force be with you", source : "Yoda", citation : "Star Wars", year : "1977", genre : "Science Fiction" },
   { quote : "There's no place like home", source : "Dorothy", citation : "The Wizard of Oz", year : "1939", genre : "Fantasy" },
   { quote : "You can't handle the truth!", source : "Col. Nathan R. Jessep", citation : "A Few Good Men", year : "1992", genre : "Drama" },
   { quote : "You're gonna need a bigger boat", source : "Chief Martin Brody", citation : "Jaws", year : "1975", genre : "Thriller" },
   { quote : "I'll be back", source : "T-800", citation : "The Terminator", year : "1984", genre : "Science Fiction" },
-  //{ quote : "No Citation", source : "No Year", citation : "", year : "" } // Test quote
+  //{ quote : "No Citation", source : "No Year", citation : "", year : "" } // Test quote for lack of citation and year
 ];
 
 // function to change background color
@@ -28,16 +28,16 @@ function changeBGColor() {
   // Source - https://stackoverflow.com/a/197761
   // Posted by user7094, modified by community. See post 'Timeline' for change history
   // Retrieved 2026-03-30, License - CC BY-SA 4.0
-  document.body.style.backgroundColor = `rgb(${redColor}, ${greenColor}, ${blueColor})`; //Divakar Rajesh helped with rgb syntax
+  document.body.style.backgroundColor = `rgb( ${redColor}, ${greenColor}, ${blueColor} )`; //Divakar Rajesh helped with rgb syntax
 }
 
 /***
  * `getRandomQuote` function
 ***/
-let choice = [];
-let lastQuote = [];
 
-function getRandomQuote() {
+function getRandomQuote() { // must be "getRandomQuote"
+  let choice = []; //initialize to block scope
+  let lastQuote = [];
   do {
   let chance = Math.floor( Math.random() * quotes.length ) // NECESSARY - variable to store random number ranging from zero to the index of the last item in the quotes array.
   choice = quotes[ chance ]; //randomly grab quote from selection
@@ -50,22 +50,28 @@ function getRandomQuote() {
  * `printQuote` function
 ***/
 
-function printQuote() {
+function printQuote() { // Must be "printQuote"
   let grab = getRandomQuote();// NECESSARY - variable to store a random quote object returned from the getRandomQuote() function.
-  let quoteHTML = `<p class = "quote"> ${grab.quote}</p> <p class = "source"> ${grab.source}`;
-  if (choice.citation !== ""){
+  let quoteHTML = `<p class = "quote"> ${grab.quote}</p> <p class = "source"> ${grab.source}`; // store new quote for insertion
+  if (grab.citation !== ""){
       quoteHTML += `<span class="citation"> ${grab.citation} </span>`
       }
-  if (choice.year !== ""){
+  if (grab.year !== ""){
       quoteHTML += `<span class="year"> ${grab.year} </span>`
       } 
-  if (choice.genre !== ""){ // additional property
+  if (grab.genre !== ""){ // additional property
       quoteHTML += `<span class="genre"> ${grab.genre} </span>`
       } 
   quoteHTML += "</p>" // close paragraph element
   document.getElementById('quote-box').innerHTML = quoteHTML; // change displayed quote on webpage
-  changeBGColor();
+  changeBGColor(); //Change Background color to random color
 }
+
+function timerQuote() {
+  setInterval( printQuote, 20000 ); // 20 second intervals
+}
+
+timerQuote(); // call function to change quote on 20 second timer
 
 /***
  * click event listener for the print quote button
