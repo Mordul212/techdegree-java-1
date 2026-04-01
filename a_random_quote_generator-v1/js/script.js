@@ -11,7 +11,7 @@ project 1 - A Random Quote Generator
  * `quotes` array 
 ***/
 
-quotes = [ // must be "quotes"
+const quotes = [ // must be "quotes"
   { quote : "May the Force be with you", source : "Yoda", citation : "Star Wars", year : "1977", genre : "Science Fiction" },
   { quote : "There's no place like home", source : "Dorothy", citation : "The Wizard of Oz", year : "1939", genre : "Fantasy" },
   { quote : "You can't handle the truth!", source : "Col. Nathan R. Jessep", citation : "A Few Good Men", year : "1992", genre : "Drama" },
@@ -35,9 +35,10 @@ function changeBGColor() {
  * `getRandomQuote` function
 ***/
 
+let lastQuote = { quote : "test"}; // give global access to make sure the variable exists between function calls
+
 function getRandomQuote() { // must be "getRandomQuote"
-  let choice = []; //initialize to block scope
-  let lastQuote = [];
+  let choice = null; //initialize to block scope
   do {
   let chance = Math.floor( Math.random() * quotes.length ) // NECESSARY - variable to store random number ranging from zero to the index of the last item in the quotes array.
   choice = quotes[ chance ]; //randomly grab quote from selection
@@ -53,13 +54,13 @@ function getRandomQuote() { // must be "getRandomQuote"
 function printQuote() { // Must be "printQuote"
   let grab = getRandomQuote();// NECESSARY - variable to store a random quote object returned from the getRandomQuote() function.
   let quoteHTML = `<p class = "quote"> ${grab.quote}</p> <p class = "source"> ${grab.source}`; // store new quote for insertion
-  if (grab.citation !== ""){
+  if (grab.citation){
       quoteHTML += `<span class="citation"> ${grab.citation} </span>`
       }
-  if (grab.year !== ""){
+  if (grab.year){
       quoteHTML += `<span class="year"> ${grab.year} </span>`
       } 
-  if (grab.genre !== ""){ // additional property
+  if (grab.genre){ // additional property
       quoteHTML += `<span class="genre"> ${grab.genre} </span>`
       } 
   quoteHTML += "</p>" // close paragraph element
